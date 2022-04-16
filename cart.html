@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <style>
+            #containergrid{
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1%;
+            }
+        </style>
+    </head>
+    <body>
+
+        <p></p>
+        <button>
+            <a href = "checkout.html">Checkout</a>
+        </button>
+        <div id = "containergrid"></div>
+    </body>
+    <script>
+        var cartData = JSON.parse(localStorage.getItem('cartData'));
+        var totalsum = cartData.reduce(function(sum, ele, index, arr){
+            return sum + Number(ele.price);
+        }, 0);
+
+        var totalitems = cartData.length;
+        document.querySelector('p').innerText = 'You have ' + " " + totalitems + " " + "items" + " "+ "in your cart and total is " + totalsum; 
+
+        function displayCart(cartData){
+        document.querySelector('#containergrid').innerHTML = '';
+        cartData.forEach((cartitem, cartindex) => {
+        var box = document.createElement('div');
+        box.setAttribute('class', 'box');
+
+        var img = document.createElement('img');
+        img.src = cartitem.image_url;
+        
+        var name = document.createElement('p');
+        name.textContent = cartitem.name;
+
+        var price = document.createElement('p');
+        price.textContent = cartitem.price;
+
+        var rating = document.createElement('p');
+        rating.textContent = cartitem.rating;
+
+        var cartbutton = document.createElement('button');
+        cartbutton.innerText = 'Remove from Cart';
+
+        cartbutton.addEventListener('click', function(){
+            cartData.splice(cartindex, 1);
+            localStorage.setItem('cartData', JSON.stringify(cartData))
+            window.location.reload();
+        });
+
+        box.append(img, name, price, rating, cartbutton);
+        document.querySelector('#containergrid').append(box);
+        });
+    }
+    displayCart(cartData);
+    </script>
+
+</html>

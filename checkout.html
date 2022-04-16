@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <form>
+        <h1>Enter Your Details</h1>
+        <input type = "text" placeholder="Enter Your Name" id = "name">
+        <input type = "text" placeholder="Enter Your Address" id = "address">
+        <p>Select Your Country</p>
+        <select id = "country">
+            <option>India</option>
+            <option>USA</option>
+            <option>England</option>
+            <option>Australia</option>
+            <option>Canada</option>
+        </select>
+        <input type = "text" placeholder="City" id = "city">
+        <input type = "text" placeholder="Zip code" id = "zip">
+        <button id = "submitcheckout">
+            
+                Proceed for payment
+            
+        </button>
+    </form>
+    </body>
+    <script>
+        
+document.querySelector('#submitcheckout').addEventListener('click', customerDetails);
+
+var details;
+if(localStorage.getItem('details') === null){
+    details = [];
+} else {
+    details = JSON.parse(localStorage.getItem('details'));
+}
+
+function customerDetails(){
+    event.preventDefault();
+    var customerdetails = {
+        name: document.querySelector('#name').value,
+        address: document.querySelector('#address').value,
+        country: document.querySelector('#country').value,
+        city: document.querySelector('#city').value,
+        zip: document.querySelector('#zip').value,
+        
+    }
+    details.push(customerdetails);
+    localStorage.setItem('details', JSON.stringify(details));
+    window.location.href = "payments.html"
+}
+    </script>
+</html>

@@ -1,0 +1,43 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>Enter Card Details</h1>
+        <input type = "text" placeholder="Enter 12 Digit Number" id = "cardnumber">
+        <input type = "text" placeholder="Expiration Date" id = "exp">
+        <input type = "text" placeholder="Enter CVV" id = "cvv">
+        <input type = "text" placeholder="Enter Card Owner's Name" id = "cname">
+
+        <button id = "submit">
+            
+                Complete Payment
+            </a>
+        </button>
+    </body>
+    <script>
+        document.querySelector('#submit').addEventListener('click', finalpay);
+
+var carddetails;
+if(localStorage.getItem('carddetails') === null){
+    carddetails = [];
+} else {
+    carddetails = JSON.parse(localStorage.getItem('carddetails'));
+}
+
+function finalpay(){
+    event.preventDefault();
+    var cdetails = {
+        number: document.querySelector('#cardnumber').value,
+        exp: document.querySelector('#exp').value,
+        cvv: document.querySelector('#cvv').value,
+        cname: document.querySelector('#cname').value,
+        
+    }
+    carddetails.push(cdetails);
+    localStorage.setItem('cdetails', JSON.stringify(cdetails));
+    alert('Order Placed Sucessfully')
+    window.location.href = "index.html"
+}
+    </script>
+</html>
